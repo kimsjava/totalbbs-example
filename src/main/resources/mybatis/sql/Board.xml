@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="site.totalbbs.sample.mvc.repository.BoardRepository">
+  	
+  	<select id="getList" parameterType="site.totalbbs.sample.mvc.domain.Board" resultType="site.totalbbs.sample.mvc.domain.Board">
+  		select 
+  			B.BOARD_SEQ,
+  			B.TITLE,
+  			B.CONTENTS,
+  			B.REG_DATE
+  		FROM T_BOARD B
+  		ORDER BY B.REG_DATE DESC
+  	</select>
+  	
+  	<select id="get" parameterType="int" resultType="site.totalbbs.sample.mvc.domain.Board">
+  		select 
+  			B.BOARD_SEQ,
+  			B.TITLE,
+  			B.CONTENTS,
+  			B.REG_DATE
+  		FROM T_BOARD B
+  		WHERE BOARD_SEQ = #{boardSeq}
+  	</select>
+  	  	
+  	<insert id="save" parameterType="site.totalbbs.sample.mvc.domain.Board">
+  		INSERT INTO T_BOARD
+  		(
+  			TITLE,
+  			CONTENTS,
+  			REG_DATE
+  		) 
+  		VALUES
+  		(
+  			#{title},
+  			#{contents},
+  			NOW()
+  		)
+  	</insert>
+  	<insert id="update" parameterType="site.totalbbs.sample.mvc.domain.Board">
+  		UPDATE T_BOARD
+  		SET
+  			TITLE= #{title},
+  			CONTENTS = #{contents}
+		WHERE BOARD_SEQ = #{boardSeq}  			
+  	</insert>  	
+  </mapper>
